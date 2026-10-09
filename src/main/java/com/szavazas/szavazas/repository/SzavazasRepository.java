@@ -5,13 +5,13 @@ import com.szavazas.szavazas.enums.SzavazasTipusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface SzavazasRepository extends JpaRepository<SzavazasEntity, String> {
 
-    boolean existsByIdopont(LocalDate idopont);
+    boolean existsByIdopont(LocalDateTime idopont);
 
     @Query("""
         SELECT szavazas FROM SzavazasEntity szavazas
@@ -19,13 +19,13 @@ public interface SzavazasRepository extends JpaRepository<SzavazasEntity, String
           AND szavazas.idopont < :idopont
         ORDER BY szavazas.idopont DESC
         """)
-    Optional<SzavazasEntity> findPreviousJelenletiSzavazas(SzavazasTipusEnum tipus, LocalDate idopont);
+    Optional<SzavazasEntity> findPreviousJelenletiSzavazas(SzavazasTipusEnum tipus, LocalDateTime idopont);
 
     @Query("""
         SELECT szavazas FROM SzavazasEntity szavazas
         WHERE szavazas.idopont >= :startOfDay AND szavazas.idopont < :endOfDay
         ORDER BY szavazas.idopont ASC
         """)
-    List<SzavazasEntity> findByNap(LocalDate startOfDay, LocalDate endOfDay);
+    List<SzavazasEntity> findByNap(LocalDateTime startOfDay, LocalDateTime endOfDay);
 
 }

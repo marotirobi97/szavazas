@@ -6,7 +6,7 @@ import com.szavazas.szavazas.enums.SzavazasTipusEnum;
 import com.szavazas.szavazas.enums.SzavazatEnum;
 import lombok.Builder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder(toBuilder = true)
@@ -15,7 +15,7 @@ public record NapiSzavazasokResponse(
 ) {
     @Builder(toBuilder = true)
     public record NapiSzavazasDto(
-            LocalDate idopont,
+            LocalDateTime idopont,
             String targy,
             SzavazasTipusEnum tipus,
             EljarasEnum eljaras,

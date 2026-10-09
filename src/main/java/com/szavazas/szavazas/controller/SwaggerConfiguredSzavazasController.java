@@ -19,18 +19,15 @@ interface SwaggerConfiguredSzavazasController {
             description = "Létrehoz egy új szavazást a megadott adatokkal és képviselői szavazatokkal."
     )
     @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Sikeres mentés, visszaadja a szavazás azonosítóját"
-            ),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Validációs hiba (pl. hiányzó elnöki szavazat, duplikált képviselői szavazat vagy meglévő időpont)"
-            )
+            @ApiResponse(responseCode = "201", description = "Sikeres mentés, visszaadja a szavazás azonosítóját"),
+            @ApiResponse(responseCode = "400", description = "Validációs hiba (pl. hiányzó elnöki szavazat, duplikált képviselői szavazat vagy meglévő időpont)")
     })
     SzavazasIdResponse save(SzavazasRequest request);
 
-    @Operation(summary = "Képviselői szavazat lekérdezése", description = "Visszaadja egy adott képviselő szavazatát egy konkrét szavazáson.")
+    @Operation(
+            summary = "Képviselői szavazat lekérdezése",
+            description = "Visszaadja egy adott képviselő szavazatát egy konkrét szavazáson."
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sikeres lekérdezés"),
             @ApiResponse(responseCode = "404", description = "A szavazás vagy a képviselő szavazata nem található")
@@ -51,12 +48,18 @@ interface SwaggerConfiguredSzavazasController {
             summary = "Adott napra a szavazások és eredményeik lekérdezése",
             description = "Visszaadja a megadott napon megtartott szavazásokat, azok eredményeit és a leadott szavazatokat."
     )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sikeres lekérdezés")
+    })
     NapiSzavazasokResponse getNapiSzavazasok(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate nap);
 
     @Operation(
             summary = "Képviselő átlagos részvételének lekérdezése",
-            description = "Kiszámítja az adott képviselő részvételi arányát a megadott 'tol' és 'ig' dátumok közötti szavazásokon."
+            description = "Kiszámítja az adott képviselő átlagos napi részvételét a megadott 'tól' és 'ig' dátumok közötti szavazásokon."
     )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sikeres kiszámítás")
+    })
     KepviseloReszvetelAtlagResponse getKepviseloReszvetelAtlag(String kepviselo,
                                                                @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate from,
                                                                @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate until);

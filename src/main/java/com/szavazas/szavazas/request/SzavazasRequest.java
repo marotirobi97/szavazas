@@ -7,13 +7,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record SzavazasRequest(
         @NotBlank(message = "Az időpont megadása kötelező")
         @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "2026-10-01")
-        LocalDate idopont,
+        LocalDateTime idopont,
 
         @NotBlank(message = "A tárgy nem lehet üres")
         @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "Szavazás 01")

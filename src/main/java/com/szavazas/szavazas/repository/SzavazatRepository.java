@@ -4,7 +4,7 @@ import com.szavazas.szavazas.entity.SzavazatEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface SzavazatRepository extends JpaRepository<SzavazatEntity, Long> {
@@ -19,6 +19,6 @@ public interface SzavazatRepository extends JpaRepository<SzavazatEntity, Long> 
           AND sz.szavazas.idopont BETWEEN :from AND :until
           AND sza.tipus != "JELENLET"
         """)
-    long countKepviseloSzavazataiInPeriod(String kepviselo, LocalDate from, LocalDate until);
+    long countKepviseloSzavazataiInPeriod(String kepviselo, LocalDateTime from, LocalDateTime until);
 
 }

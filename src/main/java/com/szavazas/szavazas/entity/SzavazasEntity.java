@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class SzavazasEntity {
     private String id;
 
     @Column(name = "idopont", nullable = false)
-    private LocalDate idopont;
+    private LocalDateTime idopont;
 
     @Column(name = "targy", nullable = false)
     private String targy;

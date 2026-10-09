@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -82,8 +82,8 @@ public class SzavazasService {
 
     @Transactional
     public NapiSzavazasokResponse getNapiSzavazasok(LocalDate nap) {
-        LocalDate startOfDay = nap.atStartOfDay(ZoneOffset.UTC).toLocalDate();
-        LocalDate endOfDay = nap.plusDays(1).atStartOfDay(ZoneOffset.UTC).toLocalDate();
+        LocalDateTime startOfDay = nap.atStartOfDay();
+        LocalDateTime endOfDay = nap.plusDays(1).atStartOfDay();
 
         List<SzavazasEntity> szavazasok = szavazasRepository.findByNap(startOfDay, endOfDay);
 
@@ -100,7 +100,7 @@ public class SzavazasService {
     public KepviseloReszvetelAtlagResponse getKepviseloReszvetelAtlag(String kepviselo, LocalDate from, LocalDate until) {
         long napokSzama = ChronoUnit.DAYS.between(from, until) + 1;
 
-        long kepviseloSzavazatai = szavazatRepository.countKepviseloSzavazataiInPeriod(kepviselo, from, until);
+        long kepviseloSzavazatai = szavazatRepository.countKepviseloSzavazataiInPeriod(kepviselo, from.atStartOfDay(), until.atStartOfDay());
 
         double atlag = BigDecimal.valueOf((double) kepviseloSzavazatai / napokSzama)
                 .setScale(2, RoundingMode.HALF_UP).doubleValue();
