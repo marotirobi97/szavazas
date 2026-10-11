@@ -18,6 +18,7 @@ public interface SzavazasRepository extends JpaRepository<SzavazasEntity, String
         WHERE szavazas.tipus = :tipus
           AND szavazas.idopont < :idopont
         ORDER BY szavazas.idopont DESC
+        LIMIT 1
         """)
     Optional<SzavazasEntity> findPreviousJelenletiSzavazas(SzavazasTipusEnum tipus, LocalDateTime idopont);
 
