@@ -37,3 +37,12 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('dockerBuild', Exec) {
+	group = 'docker'
+	description = 'Building a docker image of the Spring boot app'
+
+	dependsOn tasks.named('bootJar')
+
+	commandLine 'docker', 'build', '-t', 'szavazas_app_image_by_gradle_docker_build', '.'
+}
